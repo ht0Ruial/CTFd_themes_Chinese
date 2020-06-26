@@ -1,0 +1,85 @@
+<form method="POST" action="{{ script_root }}/admin/chal/new" enctype="multipart/form-data">
+	<div class="form-group">
+		<div class="alert alert-secondary" role="alert">
+			Flag的分值会动态变化，当解决这个题目的人数越来越多时，它的分值就越低。
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="name">名称<br>
+			<small class="form-text text-muted">
+				题目的名称
+			</small>
+		</label>
+		<input type="text" class="form-control" name="name" placeholder="输入题目名称">
+	</div>
+	<div class="form-group">
+		<label for="category">类别<br>
+			<small class="form-text text-muted">
+				题目的类别，如WEB、MISC..
+			</small>
+		</label>
+		<input type="text" class="form-control" name="category" placeholder="Enter challenge category">
+	</div>
+
+	<ul class="nav nav-tabs" role="tablist" id="new-desc-edit">
+		<li class="nav-item">
+			<a class="nav-link active" href="#new-desc-write" aria-controls="home" role="tab"
+			   data-toggle="tab">写入</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#new-desc-preview" aria-controls="home" role="tab" data-toggle="tab">预览</a>
+		</li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="new-desc-write">
+			<div class="form-group">
+				<label for="message-text" class="control-label">消息
+					<small class="form-text text-muted">
+						用这个来简单介绍一下您的题目，支持HTML和Markdown.
+					</small>
+				</label>
+				<textarea id="new-desc-editor" class="form-control" name="description" rows="10"></textarea>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane content" id="new-desc-preview" style="height:234px; overflow-y: scroll;">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="value">初始分值<br>
+			<small class="form-text text-muted">
+				题目初始分值是多少分。
+			</small>
+		</label>
+		<input type="number" class="form-control" name="value" placeholder="输入分值" required>
+
+	</div>
+
+	<div class="form-group">
+		<label for="value">衰减设定<br>
+			<small class="form-text text-muted">
+				如设定10，题目被解出数量达到10时，此时分值降到最小值
+			</small>
+		</label>
+		<input type="number" class="form-control" name="decay" placeholder="输入衰减设定" required>
+	</div>
+
+	<div class="form-group">
+		<label for="value">最低分值<br>
+			<small class="form-text text-muted">
+				这已经是这道题目的最低分数
+			</small>
+		</label>
+		<input type="number" class="form-control" name="minimum" placeholder="输入最低分值" required>
+
+	</div>
+
+	<input type="hidden" name="state" value="hidden">
+	<input type="hidden" value="dynamic" name="type" id="chaltype">
+
+	<div class="form-group">
+		<button class="btn btn-primary float-right create-challenge-submit" type="submit">创建</button>
+	</div>
+</form>

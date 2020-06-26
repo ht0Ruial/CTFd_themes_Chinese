@@ -1,0 +1,57 @@
+<div role="tabpanel" class="tab-pane config-section" id="accounts">
+	<form method="POST" autocomplete="off" class="w-100">
+
+		<div class="form-group">
+			<label>
+				帐户电子邮件白名单
+				<small class="form-text text-muted">
+					名单内账户可以注册
+				</small>
+			</label>
+			<input class="form-control" id='domain-whitelist' name='domain_whitelist' type='text'
+				   placeholder=""
+				   {% if domain_whitelist is defined and domain_whitelist != None %}value="{{ domain_whitelist }}"{% endif %}>
+			<small class="form-text text-muted">
+				例如： ctfd.io,gmail.com,yahoo.com
+			</small>
+		</div>
+
+		<div class="form-group">
+			<label>
+				验证电子邮件<br>
+				<small class="form-text text-muted">
+					用户使用必需验证其邮箱
+				</small>
+			</label>
+			<select class="form-control custom-select" name="verify_emails">
+				<option value="true" {% if verify_emails == True %}selected{% endif %}>需要</option>
+				<option value="false" {% if verify_emails == False or verify_emails == None %}selected{% endif %}>不需要</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>
+				团队规模<br>
+				<small class="form-text text-muted">
+					每个团队的用户数量
+				</small>
+			</label>
+			<input class="form-control" id="team_size" name="team_size" type="number" min="0" {% if team_size %}value="{{ team_size }}"{% endif %}>
+		</div>
+
+		<div class="form-group">
+			<label>
+				名称更改<br>
+				<small class="form-text text-muted">
+					控制用户是否可以更改他们的名字
+				</small>
+			</label>
+			<select class="form-control custom-select" name="name_changes">
+				<option value="true" {% if name_changes == True or name_changes == None %}selected{% endif %}>可以</option>
+				<option value="false" {% if name_changes == False %}selected{% endif %}>不可以</option>
+			</select>
+		</div>
+
+		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>
+	</form>
+</div>

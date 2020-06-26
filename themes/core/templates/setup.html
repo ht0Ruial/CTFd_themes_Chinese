@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block content %}
+	<div class="jumbotron">
+		<div class="container">
+			<h1>安装</h1>
+		</div>
+	</div>
+	<div class="container">
+		<div class="col-md-8 offset-md-2">
+			{% for error in errors %}
+				<div class="submit-row">
+					<div class="alert alert-danger alert-dismissable" role="alert">
+						<span class="sr-only">Error:</span>
+						{{ error }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">×</span></button>
+					</div>
+				</div>
+			{% endfor %}
+			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" id="setup-form">
+				<ul class="nav nav-pills nav-fill mb-4">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="pill" href="#general">常规</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="pill" href="#administration">管理员</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="pill" href="#style">风格</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="pill" href="#datetime">日期 &amp; 时间</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="pill" href="#integrations">集成</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="general" role="tabpanel">
+						<div class="form-group">
+							<label>
+								CTF 名字<br>
+								<small class="form-text text-muted">
+									CTF的名称
+								</small>
+							</label>
+							<input class="form-control" type="text" id="ctf_name" name="ctf_name" />
+						</div>
+
+						<div class="form-group">
+							<label>
+								CTF 描述<br>
+								<small class="form-text text-muted">
+									CTF的描述
+								</small>
+							</label>
+							<textarea class="form-control" type="text" id="ctf_description" name="ctf_description" rows="5"></textarea>
+						</div>
+
+						<div class="form-group">
+							<label>
+								CTF 比赛模式
+								<small class="form-text text-muted">
+									CTF的比赛模式 <br>
+									提示用户是否加入团队以进行比赛(团队模式)或自娱自乐(个人模式)
+								</small>
+							</label>
+							<select class="form-control custom-select" id="user_mode" name="user_mode">
+								<option value="teams">团队模式</option>
+								<option value="users">个人模式</option>
+							</select>
+						</div>
+
+						<div class="float-right">
+							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#administration">
+								下一步
+							</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="administration" role="tabpanel">
+						<div class="form-group">
+							<label>
+								管理员名称<br>
+								<small class="form-text text-muted">
+									您的管理帐户的用户名
+								</small>
+							</label>
+							<input class="form-control" type="text" name="name" required/>
+						</div>
+						<div class="form-group">
+							<label>
+								管理员邮箱<br>
+								<small class="form-text text-muted">
+									您的邮箱为管理帐户
+								</small>
+							</label>
+							<input class="form-control" type="email" name="email" required/>
+						</div>
+						<div class="form-group">
+							<label>
+								管理员密码<br>
+								<small class="form-text text-muted">
+									您的管理帐户密码
+								</small>
+							</label>
+							<input class="form-control" type="password" name="password" required/>
+						</div>
+
+						<div class="form-check">
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox" value="" id="newsletter-checkbox" checked>
+								订阅CTFd LLC通讯的电子邮件地址，以获取新闻和更新
+							</label>
+						</div>
+
+						<div class="float-right">
+							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#style">
+								下一步
+							</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="style" role="tabpanel">
+						<div class="form-group">
+							<label>
+								主题<br>
+								<small class="form-text text-muted">
+									CTFd 使用的主题
+								</small>
+							</label>
+							<select class="form-control custom-select" name="ctf_theme">
+								{% for theme in themes %}
+								<option>{{ theme }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label>
+								主题颜色
+								<small class="form-text text-muted">
+									主题使用颜色来控制样式。
+									需要主题支持。
+								</small>
+							</label>
+							<br>
+							<div class="d-inline-block">
+								<input type="hidden" name="theme_color" id="config-color-input">
+								<div class="btn-group">
+									<input type="color" id="config-color-picker" class="pr-1" style="width: 100px; height: 30px;" value="">
+								</div>
+								<div class="btn-group">
+									<button type="button" id="config-color-reset">重置</button>
+								</div>
+							</div>
+						</div>
+						<div class="float-right">
+							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#datetime">
+								下一步
+							</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="datetime" role="tabpanel">
+						<div class="form-group">
+							<label>
+								开始时间<br>
+								<small class="form-text text-muted">
+									你的CTF计划开始的时间(可选的)。
+								</small>
+							</label>
+							<div class="row">
+								<div class="col-md-4">
+									<label>日期</label>
+									<input class="form-control" id="start-date" type="date" placeholder="yyyy-mm-dd" data-preview="#start"/>
+								</div>
+								<div class="col-md-4">
+									<label>时间</label>
+									<input class="form-control" id="start-time" type="time" placeholder="hh:mm" data-preview="#start"/>
+								</div>
+								<div class="col-md-4">
+									<label>日期预览</label>
+									<input class="form-control" type="text" id="start-preview" name="start" readonly/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>
+								结束时间<br>
+								<small class="form-text text-muted">
+									你的CTF比赛结束的时间(可选的)。
+								</small>
+							</label>
+							<div class="row">
+								<div class="col-md-4">
+									<label>日期</label>
+									<input class="form-control" id="end-date" type="date" placeholder="yyyy-mm-dd" data-preview="#end"/>
+								</div>
+								<div class="col-md-4">
+									<label>时间</label>
+									<input class="form-control" id="end-time" type="time" placeholder="hh:mm" data-preview="#end"/>
+								</div>
+								<div class="col-md-4">
+									<label>日期预览</label>
+									<input class="form-control" type="text" id="end-preview" name="end" readonly />
+								</div>
+							</div>
+						</div>
+
+						<div class="float-right">
+							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#integrations">
+								下一步
+							</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="integrations" role="tabpanel">
+						<div class="form-group">
+							<h4>MajorLeagueCyber Integration</h4>
+							<p>
+							MajorLeagueCyber (MLC)是一个由CTFd开发者编写和维护的网络安全事件跟踪程序。
+							建立MLC集成到:
+							<ul>
+								<li>在MLC网站和邮件列表上显示您的活动</li>
+								<li>共享和跟踪参与者的统计数据</li>
+								<li>在团队松弛或不和谐的小组中提供实时更新</li>
+								<li>归档挑战，团队参与 &amp; 更多</li>
+							</ul>
+							</p>
+							<button type="button" id="integration-mlc" class="btn btn-primary btn-block">
+								安装
+							</button>
+						</div>
+
+						<br>
+						<hr>
+						<br>
+
+						<div class="submit-row float-right">
+							<button type="submit" tabindex="0" class="btn btn-md btn-primary btn-outlined">
+								完成
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<input type="hidden" name="nonce" value="{{ nonce }}">
+				{# This nonce is implemented specially in the route itself #}
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var STATE = {{ state | tojson }};
+</script>
+{% endblock %}
+
+{% block entrypoint %}
+	<script defer src="{{ url_for('views.themes', path='js/pages/setup.js') }}"></script>
+{% endblock %}

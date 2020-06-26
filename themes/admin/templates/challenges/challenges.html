@@ -1,0 +1,118 @@
+{% extends "admin/base.html" %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ url_for('views.themes', theme='admin', path='css/challenge-board.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="jumbotron">
+	<div class="container">
+		<h1>题目
+			<a class="no-decoration" href="{{ url_for('admin.challenges_new') }}">
+				<span role="button" data-toggle="tooltip" title="Create Challenge">
+					<i class="btn-fa fas fa-plus-circle"></i>
+				</span>
+			</a>
+		</h1>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{% if q and field %}
+			<h5 class="text-muted text-center">查找题目 <strong>{{ field }}</strong> 为 <strong>{{ q }}</strong></h5>
+			<h6 class="text-muted text-center pb-3">{{ total }} results</h6>
+			{% endif %}
+
+			<form method="GET" class="form-inline">
+				<div class="form-group col-md-2">
+					<label for="sel1" class="sr-only" >查找文件</label>
+					<select class="form-control custom-select w-100" id="sel1" name="field">
+						<option value="name" {% if field == 'name' %}selected{% endif %}>名称</option>
+						<option value="id" {% if field == 'id' %}selected{% endif %}>ID</option>
+						<option value="category" {% if field == 'category' %}selected{% endif %}>类别</option>
+						<option value="type" {% if field == 'type' %}selected{% endif %}>类型</option>
+					</select>
+				</div>
+				<div class="form-group col-md-8">
+					<label for="challenges-search" class="sr-only">参数</label>
+					<input type="text" class="form-control w-100" id="challenges-search" name="q" placeholder="Search for matching challenge" {% if q %}value="{{q}}"{% endif %}>
+				</div>
+				<div class="form-group col-md-2">
+					<label class="sr-only">搜索</label>
+					<button type="submit" class="btn btn-primary w-100"><i class="fas fa-search" aria-hidden="true"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="float-right pb-3">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-secondary" data-toggle="tooltip" title="Edit Challenges" id="challenges-edit-button">
+						<i class="btn-fa fas fa-pencil-alt"></i>
+					</button>
+					<button type="button" class="btn btn-outline-danger" data-toggle="tooltip" title="Delete Challenges" id="challenges-delete-button">
+						<i class="btn-fa fas fa-trash-alt"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div>
+				<table id="challenges" class="table table-striped border">
+					<thead>
+					<tr>
+						<td class="d-block border-right border-bottom text-center" data-checkbox>
+							<div class="form-check">
+								<input type="checkbox" class="form-check-input" data-checkbox-all>&nbsp;
+							</div>
+						</td>
+						<th class="sort-col text-center"><b>ID</b></th>
+						<th class="sort-col"><b>名称</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col"><b>类别</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>分值</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>类型</b></th>
+						<th class="d-none d-md-table-cell d-lg-table-cell sort-col text-center"><b>状态</b></th>
+					</tr>
+					</thead>
+					<tbody>
+					{% for challenge in challenges %}
+						<tr data-href="{{ url_for('admin.challenges_detail', challenge_id=challenge.id) }}">
+							<td class="d-block border-right text-center" data-checkbox>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" value="{{ challenge.id }}" data-challenge-id="{{ challenge.id }}">&nbsp;
+								</div>
+							</td>
+							<td class="text-center">{{ challenge.id }}</td>
+							<td><a href="{{ url_for('admin.challenges_detail', challenge_id=challenge.id) }}">{{ challenge.name }}</a></td>
+							<td class="d-none d-md-table-cell d-lg-table-cell">{{ challenge.category }}</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell text-center">{{ challenge.value }}</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell text-center">{{ challenge.type }}</td>
+							<td class="d-none d-md-table-cell d-lg-table-cell text-center">
+								{% set badge_state = 'badge-danger' if challenge.state == 'hidden' else 'badge-success' %}
+								<span class="badge {{ badge_state }}">{{ challenge.state }}</span>
+							</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block entrypoint %}
+	<script defer src="{{ url_for('views.themes', theme='admin', path='js/pages/challenges.js') }}"></script>
+{% endblock %}
