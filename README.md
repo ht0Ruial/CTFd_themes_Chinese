@@ -1,6 +1,9 @@
 ---
 CTFd 中文汉化版
 ---
+目前拥有 CTFd 2.5.0/3.0.0 的中文版本，同时将CTFd引用的外部css放到了gitee上，加速访问。
+
+
 1.CTFd详细部署方式请看[官方Wiki](https://docs.ctfd.io/)
 
 2.用法：
