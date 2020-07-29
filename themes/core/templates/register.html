@@ -12,13 +12,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 offset-md-3">
-			{% for error in errors %}
-				<div class="alert alert-danger alert-dismissable" role="alert">
-				  <span class="sr-only">Error:</span>
-				  {{ error }}
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-				</div>
-			{% endfor %}
+			{% include "components/errors.html" %}
 
 			{% if integrations.mlc() %}
 			<a class="btn btn-secondary btn-lg btn-block" href="{{ url_for('auth.oauth_login') }}">
@@ -28,32 +22,28 @@
 			<hr>
 			{% endif %}
 
-			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal">
+			{% with form = Forms.auth.RegistrationForm() %}
+			<form method="post" accept-charset="utf-8" autocomplete="off" role="form">
 				<div class="form-group">
-					<label for="name-input">
-						用户名
-					</label>
-					<input class="form-control" type="text" name="name" id="name-input" {% if name %}value="{{ name }}"{% endif %} />
+					<b>{{ form.name.label }}</b>
+					{{ form.name(class="form-control", value=name) }}
 				</div>
 				<div class="form-group">
-					<label for="email-input">
-						邮箱
-					</label>
-					<input class="form-control" type="text" name="email" id="email-input" {% if email %}value="{{ email }}"{% endif %} />
+					<b>{{ form.email.label }}</b>
+					{{ form.email(class="form-control", value=email) }}
 				</div>
 				<div class="form-group">
-					<label for="password-input">
-						密码
-					</label>
-					<input class="form-control" type="password" name="password" id="password-input" {% if password %}value="{{ password }}"{% endif %}/>
+					<b>{{ form.password.label }}</b>
+					{{ form.password(class="form-control", value=password) }}
 				</div>
+				{{ form.nonce() }}
 				<div class="row pt-3">
 					<div class="col-md-12">
-						<button type="submit" tabindex="0" class="btn btn-md btn-primary btn-outlined float-right">提交</button>
+						{{ form.submit(class="btn btn-md btn-primary btn-outlined float-right") }}
 					</div>
 				</div>
-				<input type="hidden" name="nonce" value="{{ nonce }}">
 			</form>
+			{% endwith %}
 		</div>
 	</div>
 </div>

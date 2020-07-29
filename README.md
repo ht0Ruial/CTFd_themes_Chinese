@@ -1,5 +1,5 @@
 ---
-CTFd 2.5.0 中文汉化版
+CTFd 中文汉化版
 ---
 1.CTFd详细部署方式请看[官方Wiki](https://docs.ctfd.io/)
 

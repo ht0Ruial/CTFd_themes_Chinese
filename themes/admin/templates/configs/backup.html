@@ -15,7 +15,7 @@
 		<div role="tabpanel" class="tab-pane active" id="export-ctf">
 			<div class="form-group">
 				<p>Exports是CTF当前状态的存档。它们可以被重新导入到其他CTFd实例中，
-				或者被脚本和第三方用于计算统计数据。</p>
+					或者被脚本和第三方用于计算统计数据。</p>
 				<p>要下载Exports，请单击下面的按钮。</p>
 			</div>
 			<div class="form-group">
@@ -37,17 +37,15 @@
 			<input id="import-button" type="submit" class="btn btn-warning" value="Import">
 		</div>
 		<div role="tabpanel" class="tab-pane" id="save-csv">
+			{% with form = Forms.config.ExportCSVForm() %}
 			<form method="GET" action="{{ url_for('admin.export_csv') }}">
 				<div class="form-group">
-					<label for="container-files">数据库表项</label>
-					<select class="form-control custom-select" name="table">
-						{% for table in database_tables %}
-							<option value="{{ table }}">{{ table }}</option>
-						{% endfor %}
-					</select>
+					{{ form.table.label }}
+					{{ form.table(class="form-control custom-select") }}
 				</div>
 				<input type="submit" class="btn btn-warning" value="Download CSV">
 			</form>
+			{% endwith %}
 		</div>
 	</div>
 </div>

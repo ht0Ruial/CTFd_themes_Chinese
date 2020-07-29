@@ -60,7 +60,7 @@
 		<div class="form-group">
 			<label for="user_mode">
 				用户模式
-				<small class="form-text text-muted">用户模式允许用户为自己注册或选择组建团队。
+				<small class="form-text text-muted">允许用户为自己注册或选择组建团队。
 				</small>
 			</label>
 			<div data-toggle="tooltip" data-placement="bottom" title="In order to change User Mode you must reset your CTF and delete all accounts">
@@ -73,56 +73,6 @@
 					</option>
 				</select>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="ctf_theme">
-				主题
-				<small class="form-text text-muted">
-					切换主题来改变CTFd的样式
-				</small>
-			</label>
-			<select class="form-control custom-select" id="ctf_theme" name="ctf_theme">
-				<option>{{ ctf_theme }}</option>
-				{% for theme in themes %}
-					<option>{{ theme }}</option>
-				{% endfor %}
-			</select>
-		</div>
-
-		<div class="form-group">
-			<label>
-				主题颜色
-				<small class="form-text text-muted">
-					主题使用颜色来控制外观，需要主题支持。
-				</small>
-			</label>
-			<div class="d-inline-block">
-				<input type="color" id="config-color-picker">
-				<button type="button" class="btn-sm btn-primary" id="config-color-update">更新 CSS</button>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label>
-				Theme Header
-				<small class="form-text text-muted">
-					在所有对外的页面上，theme header 将插入在 <code>&lt;/head&gt;</code> 之前.
-					需要主题支持。
-				</small>
-			</label>
-			<textarea class="form-control" id="theme-header" name="theme_header" rows="7">{{ theme_header or "" }}</textarea>
-		</div>
-
-		<div class="form-group">
-			<label>
-				Theme Footer
-				<small class="form-text text-muted">
-					在所有对外的页面上，Theme footers 将插入在 <code>&lt;/body&gt;</code> 之前.
-					需要主题支持。
-				</small>
-			</label>
-			<textarea class="form-control" id="theme-footer" name="theme_footer" rows="7">{{ theme_footer or "" }}</textarea>
 		</div>
 
 		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>

@@ -2,7 +2,7 @@
 	<form method="POST" autocomplete="off" class="w-100">
 		<h5>邮件内容</h5>
 		<small class="form-text text-muted">
-			自定义CTFd电子邮件与 <a href="https://help.ctfd.io/configuration/emails/#email-content" target="_blank">预定义的变量</a> 和自定义内容
+			自定义CTFd电子邮件与 <a href="https://docs.ctfd.io/docs/settings/emails/#email-content" target="_blank">预定义的变量</a> 和自定义内容
 		</small>
 		<ul class="nav nav-tabs mt-3" role="tablist">
 			<li class="nav-item active">
@@ -182,7 +182,7 @@
 					<label>
 						<input id="mail_useauth" name="mail_useauth" type="checkbox"
 							   {% if mail_useauth %}checked{% endif %}>
-						使用邮件服务器用户名和密码
+							   使用邮件服务器用户名和密码
 					</label>
 				</div>
 				<div id="mail_username_password">
@@ -202,7 +202,7 @@
 					</div>
 					<div class="form-group">
 						<label for="mail_password">
-							Password<br>
+							密码<br>
 							<small class="form-text text-muted">
 								邮件服务器密码
 							</small>
@@ -232,6 +232,9 @@
 				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="mailgun">
+				<div class="alert alert-warning" role="alert">
+					邮件集成是不可取的！请查看您的邮件帐户的SMTP凭据。
+				</div>
 				<div class="form-group">
 					<label>
 						Mailgun API Base URL<br>

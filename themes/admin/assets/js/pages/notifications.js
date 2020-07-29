@@ -20,7 +20,7 @@ function submit(event) {
     if (!response.success) {
       ezAlert({
         title: "Error",
-        body: "无法发送通知，请再试一次。",
+        body: "无法发送通知，请再试一次",
         button: "OK"
       });
     }

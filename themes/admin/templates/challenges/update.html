@@ -1,0 +1,84 @@
+{% block header %}
+{% endblock %}
+
+<form method="POST">
+	{% block name %}
+	<div class="form-group">
+		<label>
+			名称<br>
+			<small class="form-text text-muted">题目名称</small>
+		</label>
+		<input type="text" class="form-control chal-name" name="name" value="{{ challenge.name }}">
+	</div>
+	{% endblock %}
+
+	{% block category %}
+	<div class="form-group">
+		<label>
+			类别<br>
+			<small class="form-text text-muted">题目类别</small>
+		</label>
+		<input type="text" class="form-control chal-category" name="category" value="{{ challenge.category }}">
+	</div>
+	{% endblock %}
+
+	{% block message %}
+	<div class="form-group">
+		<label>
+			Message<br>
+			<small class="form-text text-muted">
+				用这个来简单介绍你的题目
+			</small>
+		</label>
+		<textarea id="desc-editor" class="form-control chal-desc-editor markdown" name="description" rows="10">{{ challenge.description }}</textarea>
+	</div>
+	{% endblock %}
+
+	{% block value %}
+	<div class="form-group">
+		<label for="value">
+			分值<br>
+			<small class="form-text text-muted">
+				题目的分值
+			</small>
+		</label>
+		<input type="number" class="form-control chal-value" name="value" value="{{ challenge.value }}" required>
+	</div>
+	{% endblock %}
+
+	{% block max_attempts %}
+	<div class="form-group">
+		<label>
+			最大提交次数<br>
+			<small class="form-text text-muted">用户的最大提交次数。以0表示无限制。</small>
+		</label>
+
+		<input type="number" class="form-control chal-attempts" name="max_attempts" value="{{ challenge.max_attempts }}">
+	</div>
+	{% endblock %}
+
+	{% block state %}
+	<div class="form-group">
+		<label>
+			状态<br>
+			<small class="form-text text-muted">更改题目的状态(例如可见的、隐藏的)</small>
+		</label>
+
+		<select class="form-control custom-select" name="state">
+			<option value="visible" {% if challenge.state == "visible" %}selected{% endif %}>Visible</option>
+			<option value="hidden" {% if challenge.state == "hidden" %}selected{% endif %}>Hidden</option>
+		</select>
+	</div>
+	{% endblock %}
+
+	{% block submit %}
+	<div>
+		<button class="btn btn-success btn-outlined float-right" type="submit">
+			更新
+		</button>
+	</div>
+	{% endblock %}
+</form>
+
+{% block footer %}
+{% endblock %}

@@ -1,57 +1,43 @@
 <div role="tabpanel" class="tab-pane config-section" id="accounts">
+
+	{% set verify_emails = "true" if verify_emails == True else "false" %}
+	{% set name_changes = "true" if name_changes == True else "false" %}
+	{% with form = Forms.config.AccountSettingsForm(verify_emails=verify_emails, name_changes=name_changes) %}
 	<form method="POST" autocomplete="off" class="w-100">
 
 		<div class="form-group">
-			<label>
-				帐户电子邮件白名单
-				<small class="form-text text-muted">
-					名单内账户可以注册
-				</small>
-			</label>
-			<input class="form-control" id='domain-whitelist' name='domain_whitelist' type='text'
-				   placeholder=""
-				   {% if domain_whitelist is defined and domain_whitelist != None %}value="{{ domain_whitelist }}"{% endif %}>
+			{{ form.domain_whitelist.label }}
+			{{ form.domain_whitelist(class="form-control", value=domain_whitelist or "") }}
 			<small class="form-text text-muted">
-				例如： ctfd.io,gmail.com,yahoo.com
+				{{ form.domain_whitelist.description }}
 			</small>
 		</div>
 
 		<div class="form-group">
-			<label>
-				验证电子邮件<br>
-				<small class="form-text text-muted">
-					用户使用必需验证其邮箱
-				</small>
-			</label>
-			<select class="form-control custom-select" name="verify_emails">
-				<option value="true" {% if verify_emails == True %}selected{% endif %}>需要</option>
-				<option value="false" {% if verify_emails == False or verify_emails == None %}selected{% endif %}>不需要</option>
-			</select>
+			{{ form.verify_emails.label }}
+			{{ form.verify_emails(class="form-control custom-select") }}
+			<small class="form-text text-muted">
+				{{ form.verify_emails.description }}
+			</small>
 		</div>
 
 		<div class="form-group">
-			<label>
-				团队规模<br>
-				<small class="form-text text-muted">
-					每个团队的用户数量
-				</small>
-			</label>
-			<input class="form-control" id="team_size" name="team_size" type="number" min="0" {% if team_size %}value="{{ team_size }}"{% endif %}>
+			{{ form.team_size.label }}
+			{{ form.team_size(class="form-control", value=team_size) }}
+			<small class="form-text text-muted">
+				{{ form.team_size.description }}
+			</small>
 		</div>
 
 		<div class="form-group">
-			<label>
-				名称更改<br>
-				<small class="form-text text-muted">
-					控制用户是否可以更改他们的名字
-				</small>
-			</label>
-			<select class="form-control custom-select" name="name_changes">
-				<option value="true" {% if name_changes == True or name_changes == None %}selected{% endif %}>可以</option>
-				<option value="false" {% if name_changes == False %}selected{% endif %}>不可以</option>
-			</select>
+			{{ form.name_changes.label }}
+			{{ form.name_changes(class="form-control custom-select") }}
+			<small class="form-text text-muted">
+				{{ form.name_changes.description }}
+			</small>
 		</div>
 
-		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>
+		{{ form.submit(class="btn btn-md btn-primary float-right") }}
 	</form>
+	{% endwith %}
 </div>

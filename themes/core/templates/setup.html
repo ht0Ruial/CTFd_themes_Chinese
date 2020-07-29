@@ -11,16 +11,9 @@
 	</div>
 	<div class="container">
 		<div class="col-md-8 offset-md-2">
-			{% for error in errors %}
-				<div class="submit-row">
-					<div class="alert alert-danger alert-dismissable" role="alert">
-						<span class="sr-only">Error:</span>
-						{{ error }}
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-								aria-hidden="true">×</span></button>
-					</div>
-				</div>
-			{% endfor %}
+			{% include "components/errors.html" %}
+
+			{% with form = Forms.setup.SetupForm() %}
 			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" id="setup-form">
 				<ul class="nav nav-pills nav-fill mb-4">
 					<li class="nav-item">
@@ -43,37 +36,32 @@
 				<div class="tab-content">
 					<div class="tab-pane fade show active" id="general" role="tabpanel">
 						<div class="form-group">
-							<label>
-								CTF 名字<br>
-								<small class="form-text text-muted">
-									CTF的名称
-								</small>
-							</label>
-							<input class="form-control" type="text" id="ctf_name" name="ctf_name" />
+							<b>{{ form.ctf_name.label }}</b>
+							{{ form.ctf_name(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_name.description }}
+							</small>
 						</div>
 
 						<div class="form-group">
-							<label>
-								CTF 描述<br>
-								<small class="form-text text-muted">
-									CTF的描述
-								</small>
-							</label>
-							<textarea class="form-control" type="text" id="ctf_description" name="ctf_description" rows="5"></textarea>
+							<b>{{ form.ctf_description.label }}</b>
+							{{ form.ctf_description(class="form-control", rows="5") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_description.description }}
+							</small>
 						</div>
 
 						<div class="form-group">
-							<label>
-								CTF 比赛模式
-								<small class="form-text text-muted">
-									CTF的比赛模式 <br>
-									提示用户是否加入团队以进行比赛(团队模式)或自娱自乐(个人模式)
-								</small>
-							</label>
-							<select class="form-control custom-select" id="user_mode" name="user_mode">
-								<option value="teams">团队模式</option>
-								<option value="users">个人模式</option>
-							</select>
+							<b>{{ form.user_mode.label }}</b>
+							{% for radio in form.user_mode %}
+								<div class="form-check ml-3">
+									{{ radio(class="form-check-input") }}
+									{{ radio.label }}
+								</div>
+							{% endfor %}
+							<small class="form-text text-muted">
+								{{ form.user_mode.description }}
+							</small>
 						</div>
 
 						<div class="float-right">
@@ -84,31 +72,25 @@
 					</div>
 					<div class="tab-pane fade" id="administration" role="tabpanel">
 						<div class="form-group">
-							<label>
-								管理员名称<br>
-								<small class="form-text text-muted">
-									您的管理帐户的用户名
-								</small>
-							</label>
-							<input class="form-control" type="text" name="name" required/>
+							<b>{{ form.name.label }}</b>
+							{{ form.name(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.name.description }}
+							</small>
 						</div>
 						<div class="form-group">
-							<label>
-								管理员邮箱<br>
-								<small class="form-text text-muted">
-									您的邮箱为管理帐户
-								</small>
-							</label>
-							<input class="form-control" type="email" name="email" required/>
+							<b>{{ form.email.label }}</b>
+							{{ form.email(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.email.description }}
+							</small>
 						</div>
 						<div class="form-group">
-							<label>
-								管理员密码<br>
-								<small class="form-text text-muted">
-									您的管理帐户密码
-								</small>
-							</label>
-							<input class="form-control" type="password" name="password" required/>
+							<b>{{ form.password.label }}</b>
+							{{ form.password(class="form-control") }}
+							<small class="form-text text-muted">
+								{{ form.password.description }}
+							</small>
 						</div>
 
 						<div class="form-check">
@@ -126,29 +108,17 @@
 					</div>
 					<div class="tab-pane fade" id="style" role="tabpanel">
 						<div class="form-group">
-							<label>
-								主题<br>
-								<small class="form-text text-muted">
-									CTFd 使用的主题
-								</small>
-							</label>
-							<select class="form-control custom-select" name="ctf_theme">
-								{% for theme in themes %}
-								<option>{{ theme }}</option>
-								{% endfor %}
-							</select>
+							<b>{{ form.ctf_theme.label }}</b>
+							{{ form.ctf_theme(class="form-control custom-select") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_theme.description }}
+							</small>
 						</div>
 						<div class="form-group">
-							<label>
-								主题颜色
-								<small class="form-text text-muted">
-									主题使用颜色来控制样式。
-									需要主题支持。
-								</small>
-							</label>
+							<b>{{ form.theme_color.label }}</b>
 							<br>
 							<div class="d-inline-block">
-								<input type="hidden" name="theme_color" id="config-color-input">
+								{{ form.theme_color(id="config-color-input") }}
 								<div class="btn-group">
 									<input type="color" id="config-color-picker" class="pr-1" style="width: 100px; height: 30px;" value="">
 								</div>
@@ -156,6 +126,9 @@
 									<button type="button" id="config-color-reset">重置</button>
 								</div>
 							</div>
+							<small class="form-text text-muted">
+								{{ form.theme_color.description }}
+							</small>
 						</div>
 						<div class="float-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#datetime">
@@ -165,12 +138,7 @@
 					</div>
 					<div class="tab-pane fade" id="datetime" role="tabpanel">
 						<div class="form-group">
-							<label>
-								开始时间<br>
-								<small class="form-text text-muted">
-									你的CTF计划开始的时间(可选的)。
-								</small>
-							</label>
+							<b>{{ form.start.label }}</b>
 							<div class="row">
 								<div class="col-md-4">
 									<label>日期</label>
@@ -182,18 +150,16 @@
 								</div>
 								<div class="col-md-4">
 									<label>日期预览</label>
-									<input class="form-control" type="text" id="start-preview" name="start" readonly/>
+									{{ form.start(class="form-control", id="start-preview", readonly=True) }}
 								</div>
 							</div>
+							<small class="form-text text-muted">
+								{{ form.start.description }}
+							</small>
 						</div>
 
 						<div class="form-group">
-							<label>
-								结束时间<br>
-								<small class="form-text text-muted">
-									你的CTF比赛结束的时间(可选的)。
-								</small>
-							</label>
+							<b>{{ form.end.label }}</b>
 							<div class="row">
 								<div class="col-md-4">
 									<label>日期</label>
@@ -205,9 +171,12 @@
 								</div>
 								<div class="col-md-4">
 									<label>日期预览</label>
-									<input class="form-control" type="text" id="end-preview" name="end" readonly />
+									{{ form.start(class="form-control", id="end-preview", readonly=True) }}
 								</div>
 							</div>
+							<small class="form-text text-muted">
+								{{ form.end.description }}
+							</small>
 						</div>
 
 						<div class="float-right">
@@ -220,8 +189,8 @@
 						<div class="form-group">
 							<h4>MajorLeagueCyber Integration</h4>
 							<p>
-							MajorLeagueCyber (MLC)是一个由CTFd开发者编写和维护的网络安全事件跟踪程序。
-							建立MLC集成到:
+								MajorLeagueCyber (MLC)是一个由CTFd开发者编写和维护的网络安全事件跟踪程序。
+								建立MLC集成到:
 							<ul>
 								<li>在MLC网站和邮件列表上显示您的活动</li>
 								<li>共享和跟踪参与者的统计数据</li>
@@ -239,16 +208,14 @@
 						<br>
 
 						<div class="submit-row float-right">
-							<button type="submit" tabindex="0" class="btn btn-md btn-primary btn-outlined">
-								完成
-							</button>
+							{{ form.submit(class="btn btn-md btn-primary btn-outlined") }}
 						</div>
 					</div>
 				</div>
 
-				<input type="hidden" name="nonce" value="{{ nonce }}">
-				{# This nonce is implemented specially in the route itself #}
+				{{ form.nonce() }}
 			</form>
+			{% endwith %}
 		</div>
 	</div>
 
