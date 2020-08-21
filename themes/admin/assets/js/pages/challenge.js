@@ -237,19 +237,26 @@ function handleChallengeOptions(event) {
 
 $(() => {
   $(".preview-challenge").click(function(_e) {
-    window.challenge = new Object();
     CTFd._internal.challenge = {};
     $.get(
       CTFd.config.urlRoot + "/api/v1/challenges/" + window.CHALLENGE_ID,
       function(response) {
-        const challenge = CTFd._internal.challenge;
+        // Preview should not show any solves
         var challenge_data = response.data;
         challenge_data["solves"] = null;
 
         $.getScript(
           CTFd.config.urlRoot + challenge_data.type_data.scripts.view,
           function() {
+            const challenge = CTFd._internal.challenge;
+
+            // Inject challenge data into the plugin
+            challenge.data = response.data;
+
             $("#challenge-window").empty();
+
+            // Call preRender function in plugin
+            challenge.preRender();
 
             $("#challenge-window").append(challenge_data.view);
 
@@ -386,7 +393,7 @@ $(() => {
           ezQuery({
             title: "Missing Flags",
             body:
-              "This challenge does not have any flags meaning it may be unsolveable. Are you sure you'd like to update this challenge?",
+              "这个题目还没有设置flag ， 你确定要更新吗？",
             success: update_challenge
           });
         } else {
