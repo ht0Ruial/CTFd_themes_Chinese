@@ -6,7 +6,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>用户
+		<h1>Users
 			<span class="create-team" role="button" data-toggle="tooltip" title="Create User">
 				<a href="{{ url_for('admin.users_new') }}" style="color: inherit;">
 					<i class="btn-fa fas fa-plus-circle"></i>
@@ -22,7 +22,7 @@
 		<div class="col-md-12">
 			{% if q and field %}
 			<h5 class="text-muted text-center">
-				搜索用户 <strong>{{ field }}</strong> 为 <strong>{{ q }}</strong>
+				Searching for users with <strong>{{ field }}</strong> matching <strong>{{ q }}</strong>
 			</h5>
 			<h6 class="text-muted text-center pb-3">
 				Page {{ users.page }} of {{ users.total }} results
@@ -74,13 +74,13 @@
 							</div>
 						</th>
 						<th class="sort-col text-center"><b>ID</b></td>
-						<th class="sort-col text-center"><b>用户</b></th>
-						<th class="d-md-table-cell d-lg-table-cell sort-col text-center"><b>邮箱</b></th>
-						<th class="sort-col text-center"><b>国家</b></th>
-						<th class="sort-col text-center px-0"><b>管理员</b></th>
-						<th class="sort-col text-center px-0"><b>已认证</b></th>
-						<th class="sort-col text-center px-0"><b>隐藏</b></th>
-						<th class="sort-col text-center px-0"><b>禁止</b></th>
+						<th class="sort-col text-center"><b>User</b></th>
+						<th class="d-md-table-cell d-lg-table-cell sort-col text-center"><b>Email</b></th>
+						<th class="sort-col text-center"><b>Country</b></th>
+						<th class="sort-col text-center px-0"><b>Admin</b></th>
+						<th class="sort-col text-center px-0"><b>Verified</b></th>
+						<th class="sort-col text-center px-0"><b>Hidden</b></th>
+						<th class="sort-col text-center px-0"><b>Banned</b></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -102,7 +102,7 @@
 								</a>
 							{% endif %}
 							{% if user.website %}
-								<a href="{{ user.website }}" target="_blank" class="badge badge-info">
+								<a href="{{ user.website }}" target="_blank" class="badge badge-info" rel="noopener">
 									<i class="btn-fa fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
 									   title="{{ user.website }}" aria-hidden="true"></i>
 								</a>
@@ -126,22 +126,22 @@
 						</td>
 						<td class="team-admin d-md-table-cell d-lg-table-cell text-center" value="{{ user.type }}">
 							{% if user.type == 'admin' %}
-								<span class="badge badge-primary">管理员</span>
+								<span class="badge badge-primary">admin</span>
 							{% endif %}
 						</td>
 						<td class="team-verified d-md-table-cell d-lg-table-cell text-center" value="{{ user.verified }}">
 							{% if user.verified %}
-								<span class="badge badge-success">已认证</span>
+								<span class="badge badge-success">verified</span>
 							{% endif %}
 						</td>
 						<td class="team-hidden d-md-table-cell d-lg-table-cell text-center" value="{{ user.hidden }}">
 							{% if user.hidden %}
-								<span class="badge badge-danger">隐藏</span>
+								<span class="badge badge-danger">hidden</span>
 							{% endif %}
 						</td>
 						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ user.banned }}">
 							{% if user.banned %}
-								<span class="badge badge-danger">禁止</span>
+								<span class="badge badge-danger">banned</span>
 							{% endif %}
 						</td>
 					</tr>

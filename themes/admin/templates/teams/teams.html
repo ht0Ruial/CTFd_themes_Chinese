@@ -74,8 +74,8 @@
 							</div>
 						</th>
 						<th class="sort-col text-center"><b>ID</b></th>
-						<th class="sort-col text-left"><b>团队</b></th>
-						<th class="sort-col text-center"><b>国家</b></th>
+						<th class="sort-col text-left"><b>Team</b></th>
+						<th class="sort-col text-center"><b>Country</b></th>
 						<th class="sort-col text-center px-0"><b>隐藏</b></th>
 						<th class="sort-col text-center px-0"><b>禁止</b></th>
 					</tr>
@@ -95,11 +95,11 @@
 							</a>
 							{% if team.oauth_id %}
 								<a href="https://majorleaguecyber.org/t/{{ team.name }}">
-									<span class="badge badge-primary">Official</span>
+									<span class="badge badge-primary">官方</span>
 								</a>
 							{% endif %}
 							{% if team.website %}
-								<a href="{{ team.website }}" target="_blank" class="badge badge-info">
+								<a href="{{ team.website }}" target="_blank" class="badge badge-info" rel="noopener">
 									<i class="btn-fa fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
 									   title="{{ team.website }}" aria-hidden="true"></i>
 								</a>
@@ -123,13 +123,13 @@
 
 						<td class="team-hidden d-md-table-cell d-lg-table-cell text-center" value="{{ team.hidden }}">
 							{% if team.hidden %}
-								<span class="badge badge-danger">hidden</span>
+								<span class="badge badge-danger">隐藏</span>
 							{% endif %}
 						</td>
 
 						<td class="team-banned d-md-table-cell d-lg-table-cell text-center" value="{{ team.banned }}">
 							{% if team.banned %}
-								<span class="badge badge-danger">banned</span>
+								<span class="badge badge-danger">禁止</span>
 							{% endif %}
 						</td>
 					</tr>

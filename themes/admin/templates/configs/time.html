@@ -13,7 +13,7 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#freeze-date" aria-controls="freeze-date" role="tab" data-toggle="tab">
-					冻结时间
+					暂停时间
 				</a>
 			</li>
 		</ul>
@@ -22,36 +22,36 @@
 			<div role="tabpanel" class="tab-pane active" id="start-date">
 				<div class="row" id="start-date">
 					<div class="col-md-12">
-						<p>这是比赛开始的时候了，题目将自动解锁，用户就可以提交答案了。</p>
+						<p>此时比赛已经开始，题目将自动解锁，用户可以提交flag了。</p>
 						<sub class="text-muted text-right mb-3">* 所有时间字段</sub>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="start-month">Month:</label>
-						<input class="form-control start-date" id='start-month' name='start-month' min="0" max="12"
+						<input class="form-control start-date" id='start-month' min="0" max="12"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="start-day">Day:</label>
-						<input class="form-control start-date" id='start-day' name='start-day' min="0" max="31"
+						<input class="form-control start-date" id='start-day' min="0" max="31"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-3">
 						<label for="start-year">Year:</label>
-						<input class="form-control start-date" id='start-year' name='start-year' type='number'>
+						<input class="form-control start-date" id='start-year' type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="start-hour">Hour:</label>
-						<input class="form-control start-date" id='start-hour' name='start-hour' min="0" max="23"
+						<input class="form-control start-date" id='start-hour' min="0" max="23"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-3">
 						<label for="start-minute">Minute:</label>
-						<input class="form-control start-date" id='start-minute' name='start-minute' min="0" max="59"
+						<input class="form-control start-date" id='start-minute' min="0" max="59"
 							   type='number'>
 					</div>
 
@@ -75,7 +75,7 @@
 
 					<div class="form-group col-md-12">
 						<label>UTC 时间戳:</label>
-						<input class="form-control" id='start' name='start' type='text'
+						<input class="form-control" id='start' name='start' type='number'
 							   placeholder="Start Date (UTC timestamp)"
 							   {% if start is defined and start != None %}value="{{ start }}"{% endif %} readonly>
 					</div>
@@ -84,36 +84,36 @@
 			<div role="tabpanel" class="tab-pane" id="end-date">
 				<div class="row" id="end-date">
 					<div class="col-md-12">
-						<p>这是比赛结束的时候了，题目将自动关闭后，用户将无法提交答案。</p>
+						<p>此时比赛已经结束，题目将自动锁定，用户将无法提交flag。</p>
 						<sub class="text-muted text-right mb-3">* 所有时间字段</sub>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="end-month">Month:</label>
-						<input class="form-control end-date" id='end-month' name='end-month' min="0" max="12"
+						<input class="form-control end-date" id='end-month' min="0" max="12"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="end-day">Day:</label>
-						<input class="form-control end-date" id='end-day' name='end-day' min="0" max="31"
+						<input class="form-control end-date" id='end-day' min="0" max="31"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-4">
 						<label for="end-year">Year:</label>
-						<input class="form-control end-date" id='end-year' name='end-year' type='number'>
+						<input class="form-control end-date" id='end-year' type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="end-hour">Hour:</label>
-						<input class="form-control end-date" id='end-hour' name='end-hour' min="0" max="23"
+						<input class="form-control end-date" id='end-hour' min="0" max="23"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="end-minute">Minute:</label>
-						<input class="form-control end-date" id='end-minute' name='end-minute' min="0"
+						<input class="form-control end-date" id='end-minute' min="0"
 							   max="59" type='number'>
 					</div>
 
@@ -121,7 +121,7 @@
 						<label>
 							<input id="view_after_ctf" name="view_after_ctf" type="checkbox"
 								   {% if view_after_ctf %}checked{% endif %}>
-								   允许在CTF结束后观看挑战(不记录提交的内容)。
+								   允许在比赛结束后查看题目(但不记录提交的内容)
 						</label>
 					</div>
 
@@ -145,7 +145,7 @@
 
 					<div class="form-group col-md-12">
 						<label for="end">UTC 时间戳:</label>
-						<input class="form-control" id='end' name='end' type='text'
+						<input class="form-control" id='end' name='end' type='number'
 							   placeholder="End Date (UTC timestamp)"
 							   {% if end is defined and end != None %}value="{{ end }}"{% endif %} readonly>
 					</div>
@@ -154,36 +154,36 @@
 			<div role="tabpanel" class="tab-pane" id="freeze-date">
 				<div class="row" id="freeze-date">
 					<div class="col-md-12">
-						<p>冻结时间指比赛将被冻结的时间戳。将显示冻结时间之前的所有解题结果，但不会向用户显示新的解题结果。</p>
-						<sub class="text-muted text-right mb-3">* All time fields required</sub>
+						<p>暂停时间指比赛将被暂停的时间戳。将显示比赛暂停之前的所有解题结果，但不会向用户显示新的解题结果。</p>
+						<sub class="text-muted text-right mb-3">* 所有时间字段</sub>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="freeze-month">Month:</label>
-						<input class="form-control freeze-date" id='freeze-month' name='freeze-month' min="0" max="12"
+						<input class="form-control freeze-date" id='freeze-month' min="0" max="12"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="freeze-day">Day:</label>
-						<input class="form-control freeze-date" id='freeze-day' name='freeze-day' min="0" max="31"
+						<input class="form-control freeze-date" id='freeze-day' min="0" max="31"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-4">
 						<label for="freeze-year">Year:</label>
-						<input class="form-control freeze-date" id='freeze-year' name='freeze-year' type='number'>
+						<input class="form-control freeze-date" id='freeze-year' type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="freeze-hour">Hour:</label>
-						<input class="form-control freeze-date" id='freeze-hour' name='freeze-hour' min="0" max="23"
+						<input class="form-control freeze-date" id='freeze-hour' min="0" max="23"
 							   type='number'>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label for="freeze-minute">Minute:</label>
-						<input class="form-control freeze-date" id='freeze-minute' name='freeze-minute' min="0"
+						<input class="form-control freeze-date" id='freeze-minute' min="0"
 							   max="59" type='number'>
 					</div>
 
@@ -207,7 +207,7 @@
 
 					<div class="form-group col-md-12">
 						<label for="freeze">UTC 时间戳:</label>
-						<input class="form-control" id='freeze' name='freeze' type='text'
+						<input class="form-control" id='freeze' name='freeze' type='number'
 							   placeholder="Freeze Date (UTC timestamp)"
 							   {% if freeze is defined and freeze != None %}value="{{ freeze }}"{% endif %} readonly>
 					</div>

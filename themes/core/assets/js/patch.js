@@ -68,7 +68,7 @@ API.prototype.patch_user_public = function(parameters, body) {
   path = path.replace("{user_id}", parameters["userId"]);
 
   if (parameters["userId"] === undefined) {
-    deferred.reject(new Error("Missing required  parameter: userId"));
+    deferred.reject(new Error("缺少必需参数: userId"));
     return deferred.promise;
   }
 
@@ -206,7 +206,7 @@ API.prototype.patch_config = function(parameters, body) {
   path = path.replace("{config_key}", parameters["configKey"]);
 
   if (parameters["configKey"] === undefined) {
-    deferred.reject(new Error("Missing required  parameter: configKey"));
+    deferred.reject(new Error("缺少必需参数: configKey"));
     return deferred.promise;
   }
 
@@ -299,7 +299,7 @@ API.prototype.patch_team_public = function(parameters, body) {
   path = path.replace("{team_id}", parameters["teamId"]);
 
   if (parameters["teamId"] === undefined) {
-    deferred.reject(new Error("Missing required  parameter: teamId"));
+    deferred.reject(new Error("缺少必需参数: teamId"));
     return deferred.promise;
   }
 
@@ -365,7 +365,7 @@ API.prototype.get_hint = function(parameters) {
   path = path.replace("{hint_id}", parameters["hintId"]);
 
   if (parameters["hintId"] === undefined) {
-    deferred.reject(new Error("Missing required  parameter: hintId"));
+    deferred.reject(new Error("缺少必需参数: hintId"));
     return deferred.promise;
   }
   delete parameters["hintId"];

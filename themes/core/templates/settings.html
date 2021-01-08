@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-2 offset-md-1">
 			<div class="nav flex-column nav-pills" role="tablist">
-				<a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#profile" role="tab">Profile</a>
+				<a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#profile" role="tab">个人资料</a>
 				<a class="nav-link" id="settings-tokens-tab" data-toggle="pill" href="#tokens" role="tab">Access Tokens</a>
 			</div>
 		</div>
@@ -23,6 +23,7 @@
 					{% include "components/errors.html" %}
 
 					{% with form = Forms.self.SettingsForm(country=country) %}
+					{% from "macros/forms.html" import render_extra_fields %}
 					<form id="user-profile-form" method="post" accept-charset="utf-8" autocomplete="off" role="form"
 						class="form-horizontal">
 						<div class="form-group">
@@ -59,6 +60,10 @@
 							<b>{{ form.country.label }}</b>
 							{{ form.country(class="form-control custom-select", value=country) }}
 						</div>
+
+						<hr>
+
+						{{ render_extra_fields(form.extra) }}
 
 						<div id="results" class="form-group">
 						</div>

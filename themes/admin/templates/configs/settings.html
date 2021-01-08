@@ -9,13 +9,13 @@
 			</label>
 			<select class="form-control custom-select" name="challenge_visibility">
 				<option value="public" {% if challenge_visibility == 'public' %}selected{% endif %}>
-					公有
+					所有人可见
 				</option>
 				<option value="private" {% if challenge_visibility == 'private' %}selected{% endif %}>
-					私人
+					登录可见
 				</option>
 				<option value="admins" {% if challenge_visibility == 'admins' %}selected{% endif %}>
-					仅限管理员
+					仅管理员可见
 				</option>
 			</select>
 		</div>
@@ -24,21 +24,21 @@
 			<label>
 				分数可见性<br>
 				<small class="form-text text-muted">
-					是否向公众、登录用户显示解决/得分，对所有非管理员隐藏，还是仅显示给管理员。
+					比赛详情是否显示给公众、登录用户，对非管理员隐藏，还是仅显示给管理员。
 				</small>
 			</label>
 			<select class="form-control custom-select" name="score_visibility">
 				<option value="public" {% if score_visibility == 'public' %}selected{% endif %}>
-					公有
+					所有人可见
 				</option>
 				<option value="private" {% if score_visibility == 'private' %}selected{% endif %}>
-					私人
+					登录可见
 				</option>
 				<option value="hidden" {% if score_visibility == 'hidden' %}selected{% endif %}>
-					隐藏
+					非管理员隐藏
 				</option>
 				<option value="admins" {% if score_visibility == 'admins' %}selected{% endif %}>
-					仅限管理员
+					仅管理员可见
 				</option>
 			</select>
 			<small class="form-text text-muted">
@@ -50,18 +50,18 @@
 			<label>
 				账户可见性<br>
 				<small class="form-text text-muted">
-					帐户(用户 &amp; 团队)是显示给所有人，还是只显示给经过身份验证的用户，还是只显示给管理员。
+					帐户(用户 &amp; 团队)是所有人可见，或是经过身份验证的用户可见，还是仅管理员可见。
 				</small>
 			</label>
 			<select class="form-control custom-select" name="account_visibility">
 				<option value="public" {% if account_visibility == 'public' %}selected{% endif %}>
-					公有
+					所有人可见
 				</option>
 				<option value="private" {% if account_visibility == 'private' %}selected{% endif %}>
-					私人
+					经过身份验证的用户可见
 				</option>
 				<option value="admins" {% if account_visibility == 'admins' %}selected{% endif %}>
-					仅限管理员
+					仅管理员可见
 				</option>
 			</select>
 			<small class="form-text text-muted">
@@ -73,15 +73,15 @@
 			<label>
 				注册可见性<br>
 				<small class="form-text text-muted">
-					设置启用注册还是禁用注册
+					设置向所有人启用注册还是禁用注册，禁用注册后管理员仍可手动添加用户
 				</small>
 			</label>
 			<select class="form-control custom-select" name="registration_visibility">
 				<option value="public" {% if registration_visibility == 'public' %}selected{% endif %}>
-					公有
+					启用注册
 				</option>
 				<option value="private" {% if registration_visibility == 'private' %}selected{% endif %}>
-					私人
+					禁用注册
 				</option>
 				<option value="mlc" {% if registration_visibility == 'mlc' %}selected{% endif %}>
 					仅MajorLeagueCyber
@@ -95,7 +95,7 @@
 					<input id="paused" name="paused" type="checkbox" {% if paused %}checked{% endif %}>
 					暂停 CTF<br>
 					<small>
-						阻止用户提交答案，直到取消暂停。但是仍然可以看到题目。
+						暂停期间用户无法提交flag，但是仍然可以看到题目。
 					</small>
 				</label>
 			</div>

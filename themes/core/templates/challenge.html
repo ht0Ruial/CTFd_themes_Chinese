@@ -49,7 +49,7 @@
 										{% else %}
 											{% if hint.cost %}
 												<small>
-													解锁提示扣除 {{ hint.cost }} 分值
+													解锁提示扣除 {{ hint.cost }} 积分
 												</small>
 											{% else %}
 												<small>
@@ -83,11 +83,11 @@
 							{% endfor %}
 						</div>
 
-						{% if max_attempts > 1 %}
+						{% if max_attempts > 0 %}
 						<div class="row text-center">
 							<div class="col-md-12">
 								<p>
-									{{ attempts }}/{{ max_attempts }} attempt{{ attempts|pluralize(attempts) }}
+									{{ attempts }}/{{ max_attempts }} attempt{{ max_attempts|pluralize }}
 								</p>
 							</div>
 						</div>
@@ -103,7 +103,7 @@
 							<div class="col-md-3 form-group key-submit">
 								{% block submit %}
 								<button id="challenge-submit" class="challenge-submit" type="submit">
-									提交
+									Submit
 								</button>
 								{% endblock %}
 							</div>

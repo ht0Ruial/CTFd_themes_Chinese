@@ -20,6 +20,55 @@
 	</div>
 </div>
 
+<div id="team-invite-modal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-action text-center w-100">团队邀请</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body clearfix">
+				{% with form = Forms.teams.TeamInviteForm() %}
+				<form method="POST">
+					<div class="form-group">
+						<b>{{ form.link.label }}</b>
+						<div class="input-group mb-3">
+							{{ form.link(id="team-invite-link", class="form-control") }}
+							<div class="input-group-append">
+								<button id="team-invite-link-copy" class="btn btn-outline-secondary" type="button">
+									<i class="fas fa-clipboard"></i>
+								</button>
+							</div>
+						</div>
+						<small class="form-text text-muted">
+							分享这个链接，让用户加入此团队
+						</small>
+					</div>
+				</form>
+				{% endwith %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="team-statistics-modal" class="modal fade">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-action text-center w-100">团队数据统计</h2>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body clearfix">
+				{% include "admin/modals/teams/statistics.html" %}
+			</div>
+		</div>
+	</div>
+</div>
+
 <div id="team-captain-modal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -40,7 +89,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2 class="modal-action text-center w-100">获奖团队成员</h2>
+				<h2 class="modal-action text-center w-100">获奖的团队成员</h2>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -91,13 +140,13 @@
 		<h1 id="team-id" class="text-center">{{ team.name }}</h1>
 		<div class="mb-2">
 			{% if team.verified %}
-				<span class="badge badge-success">已认证的</span>
+				<span class="badge badge-success">已认证</span>
 			{% endif %}
 			{% if team.hidden %}
-				<span class="badge badge-danger">隐藏的</span>
+				<span class="badge badge-danger">隐藏</span>
 			{% endif %}
 			{% if team.banned %}
-				<span class="badge badge-danger">禁用的</span>
+				<span class="badge badge-danger">禁用</span>
 			{% endif %}
 		</div>
 
@@ -121,6 +170,12 @@
 			</h3>
 		{% endif %}
 
+		{% for field in team.get_fields(admin=true) %}
+			<h3 class="d-block">
+				{{ field.name }}: {{ field.value }}
+			</h3>
+		{% endfor %}
+
 		<h2 class="text-center">{{ members | length }} members</h2>
 		<h3 id="team-place" class="text-center">
 			{% if place %}
@@ -140,6 +195,14 @@
 				<i class="btn-fa fas fa-pencil-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
 				   title="Edit Team"></i>
 			</a>
+			<a class="invite-team text-dark">
+				<i class="btn-fa fas fa-ticket-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
+				   title="Team Invite Link"></i>
+			</a>
+			<a class="statistics-team text-dark">
+				<i class="btn-fa fas fa-chart-pie fa-2x px-2" data-toggle="tooltip" data-placement="top"
+				   title="Team Statistics"></i>
+			</a>
 			<a class="edit-captain text-dark">
 				<i class="btn-fa fas fa-user-tag fa-2x px-2" data-toggle="tooltip" data-placement="top"
 				   title="Choose Captain"></i>
@@ -157,7 +220,7 @@
 				<i class="btn-fa fas fa-network-wired fa-2x px-2" data-toggle="tooltip" data-placement="top" title="IP Addresses"></i>
 			</a>
 			{% if team.website %}
-			<a href="{{ team.website }}" target="_blank" class="text-dark">
+			<a href="{{ team.website }}" target="_blank" class="text-dark" rel="noopener">
 				<i class="btn-fa fas fa-external-link-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
 					title="{{ team.website }}" aria-hidden="true"></i>
 			</a>
@@ -167,31 +230,7 @@
 </div>
 
 <div class="container">
-	<div class="row min-vh-25">
-		{% if solves %}
-			<div id="keys-pie-graph" class="col-md-6 d-flex align-items-center">
-				<div class="text-center w-100">
-					<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
-				</div>
-			</div>
-			<div id="categories-pie-graph" class="col-md-6 d-flex align-items-center">
-				<div class="text-center w-100">
-					<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
-				</div>
-			</div>
-			<div id="score-graph" class="col-md-12 d-flex align-items-center">
-				<div class="text-center w-100">
-					<i class="fas fa-circle-notch fa-spin fa-3x fa-fw spinner"></i>
-				</div>
-			</div>
-		{% else %}
-			<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-				No solves yet
-			</h3>
-		{% endif %}
-	</div>
-
-	<div class="row pt-5 min-vh-25">
+	<div class="row min-vh-25 pt-5 pb-5">
 		<div class="col-md-12">
 			<table class="table table-striped">
 				<h3 class="text-center">团队成员</h3>
@@ -208,7 +247,7 @@
 					<tr>
 						<td class="text-center" data-href="{{ url_for('admin.users_detail', user_id=member.id) }}">
 							{% if team.captain_id == member.id %}
-								<span class="badge badge-primary">Captain</span>
+								<span class="badge badge-primary">队长</span>
 							{% endif %}
 						</td>
 						<td class="text-left" data-href="{{ url_for('admin.users_detail', user_id=member.id) }}">
@@ -237,21 +276,21 @@
 
 	<nav class="nav nav-tabs nav-fill pt-5" id="myTab" role="tablist">
 		<a class="nav-item nav-link active" id="nav-solves-tab" data-toggle="tab" href="#nav-solves" role="tab"
-		   aria-controls="nav-solves" aria-selected="true">解决</a>
+		   aria-controls="nav-solves" aria-selected="true">Solves</a>
 
 		<a class="nav-item nav-link" id="nav-wrong-tab" data-toggle="tab" href="#nav-wrong" role="tab"
-		   aria-controls="nav-wrong" aria-selected="false">错误</a>
+		   aria-controls="nav-wrong" aria-selected="false">Fails</a>
 
 		<a class="nav-item nav-link" id="nav-awards-tab" data-toggle="tab" href="#nav-awards" role="tab"
-		   aria-controls="nav-awards" aria-selected="false">奖励</a>
+		   aria-controls="nav-awards" aria-selected="false">Awards</a>
 
 		<a class="nav-item nav-link" id="nav-missing-tab" data-toggle="tab" href="#nav-missing" role="tab"
-		   aria-controls="nav-missing" aria-selected="false">缺失</a>
+		   aria-controls="nav-missing" aria-selected="false">Missing</a>
 	</nav>
 
-	<div class="tab-content min-vh-50" id="nav-tabContent">
+	<div class="tab-content min-vh-50 pb-5" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="nav-solves" role="tabpanel" aria-labelledby="nav-solves-tab">
-			<h3 class="text-center pt-5 d-block">解决</h3>
+			<h3 class="text-center pt-5 d-block">Solves</h3>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="float-right pb-3">
@@ -316,7 +355,7 @@
 		</div>
 
 		<div class="tab-pane fade" id="nav-wrong" role="tabpanel" aria-labelledby="nav-wrong-tab">
-			<h3 class="text-center pt-5 d-block">失败</h3>
+			<h3 class="text-center pt-5 d-block">Fails</h3>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="float-right pb-3">
@@ -377,7 +416,7 @@
 		</div>
 
 		<div class="tab-pane fade" id="nav-awards" role="tabpanel" aria-labelledby="nav-awards-tab">
-			<h3 class="text-center pt-5 d-block">奖励</h3>
+			<h3 class="text-center pt-5 d-block">Awards</h3>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="float-right pb-3">
@@ -438,7 +477,7 @@
 		</div>
 
 		<div class="tab-pane fade" id="nav-missing" role="tabpanel" aria-labelledby="nav-missing-tab">
-			<h3 class="text-center pt-5 d-block">缺失</h3>
+			<h3 class="text-center pt-5 d-block">Missing</h3>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="float-right pb-3">
@@ -486,6 +525,13 @@
 					</tbody>
 				</table>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row min-vh-25 pt-5">
+		<div class="col-md-10 offset-md-1">
+			<div id="comment-box">
 			</div>
 		</div>
 	</div>

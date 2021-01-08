@@ -6,22 +6,15 @@ import CTFd from "core/CTFd";
 import { htmlEntities } from "core/utils";
 import { ezQuery, ezAlert, ezToast } from "core/ezq";
 import { default as helpers } from "core/helpers";
-import { addFile, deleteFile } from "../challenges/files";
-import { addTag, deleteTag } from "../challenges/tags";
-import { addRequirement, deleteRequirement } from "../challenges/requirements";
 import { bindMarkdownEditors } from "../styles";
-import {
-  showHintModal,
-  editHint,
-  deleteHint,
-  showEditHintModal
-} from "../challenges/hints";
-import {
-  addFlagModal,
-  editFlagModal,
-  deleteFlag,
-  flagTypeSelect
-} from "../challenges/flags";
+import Vue from "vue/dist/vue.esm.browser";
+import CommentBox from "../components/comments/CommentBox.vue";
+import FlagList from "../components/flags/FlagList.vue";
+import Requirements from "../components/requirements/Requirements.vue";
+import TagsList from "../components/tags/TagsList.vue";
+import ChallengeFilesList from "../components/files/ChallengeFilesList.vue";
+import HintsList from "../components/hints/HintsList.vue";
+import hljs from "highlight.js";
 
 const displayHint = data => {
   ezAlert({
@@ -302,6 +295,13 @@ $(() => {
             });
 
             challenge.postRender();
+
+            $("#challenge-window")
+              .find("pre code")
+              .each(function(_idx) {
+                hljs.highlightBlock(this);
+              });
+
             window.location.replace(
               window.location.href.split("#")[0] + "#preview"
             );
@@ -393,7 +393,7 @@ $(() => {
           ezQuery({
             title: "Missing Flags",
             body:
-              "这个题目还没有设置flag ， 你确定要更新吗？",
+              "This challenge does not have any flags meaning it may be unsolveable. Are you sure you'd like to update this challenge?",
             success: update_challenge
           });
         } else {
@@ -404,24 +404,67 @@ $(() => {
 
   $("#challenge-create-options form").submit(handleChallengeOptions);
 
-  $("#tags-add-input").keyup(addTag);
-  $(".delete-tag").click(deleteTag);
+  // Load FlagList component
+  if (document.querySelector("#challenge-flags")) {
+    const flagList = Vue.extend(FlagList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-flags").appendChild(vueContainer);
+    new flagList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-  $("#prerequisite-add-form").submit(addRequirement);
-  $(".delete-requirement").click(deleteRequirement);
+  // Load TagsList component
+  if (document.querySelector("#challenge-tags")) {
+    const tagList = Vue.extend(TagsList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-tags").appendChild(vueContainer);
+    new tagList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-  $("#file-add-form").submit(addFile);
-  $(".delete-file").click(deleteFile);
+  // Load Requirements component
+  if (document.querySelector("#prerequisite-add-form")) {
+    const reqsComponent = Vue.extend(Requirements);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#prerequisite-add-form").appendChild(vueContainer);
+    new reqsComponent({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-  $("#hint-add-button").click(showHintModal);
-  $(".delete-hint").click(deleteHint);
-  $(".edit-hint").click(showEditHintModal);
-  $("#hint-edit-form").submit(editHint);
+  // Load ChallengeFilesList component
+  if (document.querySelector("#challenge-files")) {
+    const challengeFilesList = Vue.extend(ChallengeFilesList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-files").appendChild(vueContainer);
+    new challengeFilesList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
-  $("#flag-add-button").click(addFlagModal);
-  $(".delete-flag").click(deleteFlag);
-  $("#flags-create-select").change(flagTypeSelect);
-  $(".edit-flag").click(editFlagModal);
+  // Load HintsList component
+  if (document.querySelector("#challenge-hints")) {
+    const hintsList = Vue.extend(HintsList);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#challenge-hints").appendChild(vueContainer);
+    new hintsList({
+      propsData: { challenge_id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
+
+  // Because this JS is shared by a few pages,
+  // we should only insert the CommentBox if it's actually in use
+  if (document.querySelector("#comment-box")) {
+    // Insert CommentBox element
+    const commentBox = Vue.extend(CommentBox);
+    let vueContainer = document.createElement("div");
+    document.querySelector("#comment-box").appendChild(vueContainer);
+    new commentBox({
+      propsData: { type: "challenge", id: window.CHALLENGE_ID }
+    }).$mount(vueContainer);
+  }
 
   $.get(CTFd.config.urlRoot + "/api/v1/challenges/types", function(response) {
     const data = response.data;

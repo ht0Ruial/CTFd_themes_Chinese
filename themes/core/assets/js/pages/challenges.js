@@ -2,10 +2,14 @@ import "./main";
 import "bootstrap/js/dist/tab";
 import { ezQuery, ezAlert } from "../ezq";
 import { htmlEntities } from "../utils";
-import Moment from "moment";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import $ from "jquery";
 import CTFd from "../CTFd";
 import config from "../config";
+import hljs from "highlight.js";
+
+dayjs.extend(relativeTime);
 
 const api_func = {
   teams: x => CTFd.api.get_team_solves({ teamId: x }),
@@ -125,6 +129,12 @@ const displayChal = chal => {
 
     challenge.postRender();
 
+    $("#challenge-window")
+      .find("pre code")
+      .each(function(_idx) {
+        hljs.highlightBlock(this);
+      });
+
     window.location.replace(
       window.location.href.split("#")[0] + `#${chal.name}-${chal.id}`
     );
@@ -168,15 +178,22 @@ function renderSubmissionResponse(response) {
     );
     result_notification.slideDown();
 
-    $(".challenge-solves").text(
-      parseInt(
-        $(".challenge-solves")
-          .text()
-          .split(" ")[0]
-      ) +
-        1 +
-        " Solves"
-    );
+    if (
+      $(".challenge-solves")
+        .text()
+        .trim()
+    ) {
+      // Only try to increment solves if the text isn't hidden
+      $(".challenge-solves").text(
+        parseInt(
+          $(".challenge-solves")
+            .text()
+            .split(" ")[0]
+        ) +
+          1 +
+          " Solves"
+      );
+    }
 
     answer_input.val("");
     answer_input.removeClass("wrong");
@@ -249,9 +266,7 @@ function getSolves(id) {
     for (let i = 0; i < data.length; i++) {
       const id = data[i].account_id;
       const name = data[i].name;
-      const date = Moment(data[i].date)
-        .local()
-        .fromNow();
+      const date = dayjs(data[i].date).fromNow();
       const account_url = data[i].account_url;
       box.append(
         '<tr><td><a href="{0}">{2}</td><td>{3}</td></tr>'.format(
@@ -399,7 +414,7 @@ const displayHint = data => {
 const displayUnlock = id => {
   ezQuery({
     title: "Unlock Hint?",
-    body: "Are you sure you want to open this hint?",
+    body: "您确定要打开这个提示吗?",
     success: () => {
       const params = {
         target: id,

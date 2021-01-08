@@ -23,7 +23,7 @@ function deleteCorrectSubmission(_event) {
     .parent();
 
   ezQuery({
-    title: "删除提交",
+    title: "Delete Submission",
     body: "Are you sure you want to delete correct submission from {0} for challenge {1}".format(
       "<strong>" + htmlEntities(team_name) + "</strong>",
       "<strong>" + htmlEntities(chal_name) + "</strong>"

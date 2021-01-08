@@ -25,6 +25,11 @@
 					</span>
 				</h3>
 			{% endif %}
+			{% for field in team.fields %}
+				<h3 class="d-block">
+					{{ field.name }}: {{ field.value }}
+				</h3>
+			{% endfor %}
 			<h2 id="team-place" class="text-center">
 				{# This intentionally hides the team's place when scores are hidden because this can be their internal profile
 			and we don't want to leak their place in the CTF. #}
@@ -32,20 +37,20 @@
 				{% if scores_visible() %}
 					{% if place %}
 						{{ place }}
-						<small>位置</small>
+						<small>place</small>
 					{% endif %}
 				{% endif %}
 			</h2>
 			<h2 id="team-score" class="text-center">
 				{% if score %}
 					{{ score }}
-					<small>分数</small>
+					<small>points</small>
 				{% endif %}
 			</h2>
 
 			<div class="pt-3">
 				{% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
-					<a href="{{ team.website }}" target="_blank" style="color: inherit;">
+					<a href="{{ team.website }}" target="_blank" style="color: inherit;" rel="noopener">
 						<i class="fas fa-external-link-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
 						   title="{{ team.website }}"></i>
 					</a>
@@ -60,12 +65,12 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<h3>序号</h3>
+				<h3>Members</h3>
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<td><b>用户</b></td>
-						<td><b>积分</b></td>
+						<td><b>User Name</b></td>
+						<td><b>Score</b></td>
 					</tr>
 					</thead>
 					<tbody>
@@ -141,7 +146,7 @@
 						<thead>
 						<tr>
 							<td><b>题目</b></td>
-							<td class="d-none d-md-block d-lg-block"><b>Category</b></td>
+							<td class="d-none d-md-block d-lg-block"><b>类别</b></td>
 							<td><b>分值</b></td>
 							<td><b>时间</b></td>
 						</tr>

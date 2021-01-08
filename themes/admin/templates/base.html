@@ -108,20 +108,19 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<main role="main">
 		{% if get_config('version_latest') %}
 		<div class="container-fluid bg-warning text-center py-3">
 			<div class="row">
 				<div class="col-md-12">
 					<a class="btn btn-warning" href="{{ get_config('version_latest') }}">
-						一个新的CTFd版本!
+						一个可用的新CTFd版本!
 					</a>
 				</div>
 			</div>
 		</div>
 		{% endif %}
-
 		{% block content %}
 		{% endblock %}
 	</main>
@@ -142,6 +141,7 @@
 	<script defer src="{{ url_for('views.themes', theme='admin', path='js/vendor.bundle.js') }}"></script>
 	<script defer src="{{ url_for('views.themes', theme='admin', path='js/core.js') }}"></script>
 	<script defer src="{{ url_for('views.themes', theme='admin', path='js/helpers.js') }}"></script>
+	<script defer src="{{ url_for('views.themes', theme='admin', path='js/components.js') }}"></script>
 
 	{% block entrypoint %}
 	<script defer src="{{ url_for('views.themes', theme='admin', path='js/pages/main.js') }}"></script>

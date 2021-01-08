@@ -61,11 +61,11 @@ function bulkToggleAccounts(_event) {
     body: $(`
     <form id="scoreboard-bulk-edit">
       <div class="form-group">
-        <label>可见</label>
+        <label>Visibility</label>
         <select name="visibility" data-initial="">
           <option value="">--</option>
-          <option value="visible">可见</option>
-          <option value="hidden">隐藏</option>
+          <option value="visible">Visible</option>
+          <option value="hidden">Hidden</option>
         </select>
       </div>
     </form>

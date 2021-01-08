@@ -14,7 +14,7 @@
 			{% include "components/errors.html" %}
 
 			{% with form = Forms.setup.SetupForm() %}
-			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" id="setup-form">
+			<form method="post" accept-charset="utf-8" autocomplete="off" role="form" class="form-horizontal" id="setup-form" enctype="multipart/form-data">
 				<ul class="nav nav-pills nav-fill mb-4">
 					<li class="nav-item">
 						<a class="nav-link active" data-toggle="pill" href="#general">常规</a>
@@ -64,7 +64,7 @@
 							</small>
 						</div>
 
-						<div class="float-right">
+						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#administration">
 								下一步
 							</button>
@@ -100,13 +100,34 @@
 							</label>
 						</div>
 
-						<div class="float-right">
+						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#style">
 								下一步
 							</button>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="style" role="tabpanel">
+						<div class="form-group">
+							<b>{{ form.ctf_logo.label }}</b>
+							{{ form.ctf_logo(class="form-control-file", accept="image/*") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_logo.description }}
+							</small>
+						</div>
+						<div class="form-group">
+							<b>{{ form.ctf_banner.label }}</b>
+							{{ form.ctf_banner(class="form-control-file", accept="image/*") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_banner.description }}
+							</small>
+						</div>
+						<div class="form-group">
+							<b>{{ form.ctf_small_icon.label }}</b>
+							{{ form.ctf_small_icon(class="form-control-file", accept=".png") }}
+							<small class="form-text text-muted">
+								{{ form.ctf_small_icon.description }}
+							</small>
+						</div>
 						<div class="form-group">
 							<b>{{ form.ctf_theme.label }}</b>
 							{{ form.ctf_theme(class="form-control custom-select") }}
@@ -130,7 +151,7 @@
 								{{ form.theme_color.description }}
 							</small>
 						</div>
-						<div class="float-right">
+						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#datetime">
 								下一步
 							</button>
@@ -179,7 +200,7 @@
 							</small>
 						</div>
 
-						<div class="float-right">
+						<div class="text-right">
 							<button type="button" class="btn btn-primary btn-outlined tab-next" data-href="#integrations">
 								下一步
 							</button>
@@ -189,13 +210,13 @@
 						<div class="form-group">
 							<h4>MajorLeagueCyber Integration</h4>
 							<p>
-								MajorLeagueCyber (MLC)是一个由CTFd开发者编写和维护的网络安全事件跟踪程序。
-								建立MLC集成到:
+							MajorLeagueCyber (MLC)是一个由CTFd开发者编写和维护的网络安全事件跟踪程序。
+							建立MLC集成到:
 							<ul>
 								<li>在MLC网站和邮件列表上显示您的活动</li>
-								<li>共享和跟踪参与者的统计数据</li>
-								<li>在团队松弛或不和谐的小组中提供实时更新</li>
-								<li>归档挑战，团队参与 &amp; 更多</li>
+								<li>关注和共享参与者的统计数据</li>
+								<li>在不稳定的团队或小组中提供实时更新</li>
+								<li>归档题目，团队参与 &amp; 更多</li>
 							</ul>
 							</p>
 							<button type="button" id="integration-mlc" class="btn btn-primary btn-block">
@@ -207,7 +228,7 @@
 						<hr>
 						<br>
 
-						<div class="submit-row float-right">
+						<div class="submit-row text-right">
 							{{ form.submit(class="btn btn-md btn-primary btn-outlined") }}
 						</div>
 					</div>

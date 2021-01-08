@@ -46,10 +46,10 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<td><b>团队</b></td>
-						<td><b>网站</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>所属单位</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>国家</b></td>
+						<td><b>Team</b></td>
+						<td><b>Website</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Affiliation</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Country</b></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,7 +69,7 @@
 						</td>
 						<td class="text-center" style="width: 10px;">
 							{% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
-								<a href="{{ team.website }}" target="_blank">
+								<a href="{{ team.website }}" target="_blank" rel="noopener">
 									<i class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="top" title="{{ team.website }}"></i>
 								</a>
 							{% endif %}

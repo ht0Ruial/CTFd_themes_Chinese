@@ -2,7 +2,11 @@ import "./main";
 import "core/utils";
 import $ from "jquery";
 import CTFd from "core/CTFd";
-import { ezQuery, ezAlert } from "core/ezq";
+import { ezAlert } from "core/ezq";
+import Vue from "vue/dist/vue.esm.browser";
+import Notification from "../components/notifications/Notification.vue";
+
+const notificationCard = Vue.extend(Notification);
 
 function submit(event) {
   event.preventDefault();
@@ -13,6 +17,9 @@ function submit(event) {
   $form.find("button[type=submit]").attr("disabled", true);
 
   CTFd.api.post_notification_list({}, params).then(response => {
+    $form.find(":input[name=title]").val("");
+    $form.find(":input[name=content]").val("");
+
     // Admin should also see the notification sent out
     setTimeout(function() {
       $form.find("button[type=submit]").attr("disabled", false);
@@ -24,6 +31,18 @@ function submit(event) {
         button: "OK"
       });
     }
+
+    let vueContainer = document.createElement("div");
+    $("#notifications-list").prepend(vueContainer);
+    new notificationCard({
+      propsData: {
+        id: response.data.id,
+        title: response.data.title,
+        content: response.data.content,
+        html: response.data.html,
+        date: response.data.date
+      }
+    }).$mount(vueContainer);
   });
 }
 
@@ -32,17 +51,13 @@ function deleteNotification(event) {
   const $elem = $(this);
   const id = $elem.data("notif-id");
 
-  ezQuery({
-    title: "删除通知",
-    body: "您确定要删除此通知吗？",
-    success: function() {
-      CTFd.api.delete_notification({ notificationId: id }).then(response => {
-        if (response.success) {
-          $elem.parent().remove();
-        }
-      });
-    }
-  });
+  if (confirm("您确定要删除此通知吗？")) {
+    CTFd.api.delete_notification({ notificationId: id }).then(response => {
+      if (response.success) {
+        $elem.parent().remove();
+      }
+    });
+  }
 }
 
 $(() => {

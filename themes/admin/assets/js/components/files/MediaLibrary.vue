@@ -1,6 +1,6 @@
 <template>
   <div id="media-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <div class="container">
@@ -237,7 +237,7 @@ export default {
     deleteSelectedFile: function() {
       var file_id = this.selectedFile.id;
 
-      if (confirm("你确定要删除这些文件吗？")) {
+      if (confirm("Are you sure you want to delete this file?")) {
         CTFd.fetch("/api/v1/files/" + file_id, {
           method: "DELETE"
         }).then(response => {

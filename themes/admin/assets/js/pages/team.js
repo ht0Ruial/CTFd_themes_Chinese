@@ -4,10 +4,26 @@ import CTFd from "core/CTFd";
 import { htmlEntities } from "core/utils";
 import { ezAlert, ezQuery, ezBadge } from "core/ezq";
 import { createGraph, updateGraph } from "core/graphs";
+import Vue from "vue/dist/vue.esm.browser";
+import CommentBox from "../components/comments/CommentBox.vue";
+import { copyToClipboard } from "../../../../core/assets/js/utils";
 
 function createTeam(event) {
   event.preventDefault();
   const params = $("#team-info-create-form").serializeJSON(true);
+
+  params.fields = [];
+
+  for (const property in params) {
+    if (property.match(/fields\[\d+\]/)) {
+      let field = {};
+      let id = parseInt(property.slice(7, -1));
+      field["field_id"] = id;
+      field["value"] = params[property];
+      params.fields.push(field);
+      delete params[property];
+    }
+  }
 
   CTFd.fetch("/api/v1/teams", {
     method: "POST",
@@ -26,15 +42,17 @@ function createTeam(event) {
         const team_id = response.data.id;
         window.location = CTFd.config.urlRoot + "/admin/teams/" + team_id;
       } else {
-        $("#team-info-form > #results").empty();
+        $("#team-info-create-form > #results").empty();
         Object.keys(response.errors).forEach(function(key, _index) {
-          $("#team-info-form > #results").append(
+          $("#team-info-create-form > #results").append(
             ezBadge({
               type: "error",
               body: response.errors[key]
             })
           );
-          const i = $("#team-info-form").find("input[name={0}]".format(key));
+          const i = $("#team-info-create-form").find(
+            "input[name={0}]".format(key)
+          );
           const input = $(i);
           input.addClass("input-filled-invalid");
           input.removeClass("input-filled-valid");
@@ -45,7 +63,20 @@ function createTeam(event) {
 
 function updateTeam(event) {
   event.preventDefault();
-  const params = $("#team-info-edit-form").serializeJSON(true);
+  let params = $("#team-info-edit-form").serializeJSON(true);
+
+  params.fields = [];
+
+  for (const property in params) {
+    if (property.match(/fields\[\d+\]/)) {
+      let field = {};
+      let id = parseInt(property.slice(7, -1));
+      field["field_id"] = id;
+      field["value"] = params[property];
+      params.fields.push(field);
+      delete params[property];
+    }
+  }
 
   CTFd.fetch("/api/v1/teams/" + window.TEAM_ID, {
     method: "PATCH",
@@ -339,6 +370,34 @@ $(() => {
     $("#team-info-edit-modal").modal("toggle");
   });
 
+  $(".invite-team").click(function(_e) {
+    CTFd.fetch(`/api/v1/teams/${window.TEAM_ID}/members`, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        if (response.success) {
+          let code = response.data.code;
+          let url = `${window.location.origin}${
+            CTFd.config.urlRoot
+          }/teams/invite?code=${code}`;
+          $("#team-invite-modal input[name=link]").val(url);
+          $("#team-invite-modal").modal("toggle");
+        }
+      });
+  });
+
+  $("#team-invite-link-copy").click(function(e) {
+    copyToClipboard(e, "#team-invite-link");
+  });
+
   $(".edit-captain").click(function(_e) {
     $("#team-captain-modal").modal("toggle");
   });
@@ -417,7 +476,7 @@ $(() => {
       .parent();
 
     ezQuery({
-      title: "Remove Member",
+      title: "删除成员",
       body: "Are you sure you want to remove {0} from {1}? <br><br><strong>All of their challenges solves, attempts, awards, and unlocked hints will also be deleted!</strong>".format(
         "<strong>" + htmlEntities(member_name) + "</strong>",
         "<strong>" + htmlEntities(window.TEAM_NAME) + "</strong>"
@@ -481,11 +540,30 @@ $(() => {
 
   $("#team-info-edit-form").submit(updateTeam);
 
+  // Insert CommentBox element
+  const commentBox = Vue.extend(CommentBox);
+  let vueContainer = document.createElement("div");
+  document.querySelector("#comment-box").appendChild(vueContainer);
+  new commentBox({
+    propsData: { type: "team", id: window.TEAM_ID }
+  }).$mount(vueContainer);
+
   let type, id, name, account_id;
   ({ type, id, name, account_id } = window.stats_data);
 
-  createGraphs(type, id, name, account_id);
-  setInterval(() => {
-    updateGraphs(type, id, name, account_id);
-  }, 300000);
+  let intervalId;
+  $("#team-statistics-modal").on("shown.bs.modal", function(_e) {
+    createGraphs(type, id, name, account_id);
+    intervalId = setInterval(() => {
+      updateGraphs(type, id, name, account_id);
+    }, 300000);
+  });
+
+  $("#team-statistics-modal").on("hidden.bs.modal", function(_e) {
+    clearInterval(intervalId);
+  });
+
+  $(".statistics-team").click(function(_event) {
+    $("#team-statistics-modal").modal("toggle");
+  });
 });

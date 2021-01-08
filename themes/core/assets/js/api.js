@@ -16,7 +16,7 @@ let API = (function() {
     let domain = typeof options === "object" ? options.domain : options;
     this.domain = domain ? domain : "";
     if (this.domain.length === 0) {
-      throw new Error("Domain parameter must be specified as a string.");
+      throw new Error("域参数必须指定为字符串。");
     }
   }
 
@@ -152,7 +152,7 @@ let API = (function() {
     path = path.replace("{award_id}", parameters["awardId"]);
 
     if (parameters["awardId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: awardId"));
+      deferred.reject(new Error("缺少必需参数: awardId"));
       return deferred.promise;
     }
 
@@ -196,7 +196,7 @@ let API = (function() {
     path = path.replace("{award_id}", parameters["awardId"]);
 
     if (parameters["awardId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: awardId"));
+      deferred.reject(new Error("缺少必需参数: awardId"));
       return deferred.promise;
     }
 
@@ -384,7 +384,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -428,7 +428,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -472,7 +472,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -521,7 +521,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -570,7 +570,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -619,7 +619,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -668,7 +668,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -717,7 +717,7 @@ let API = (function() {
     path = path.replace("{challenge_id}", parameters["challengeId"]);
 
     if (parameters["challengeId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: challengeId"));
+      deferred.reject(new Error("缺少必需参数: challengeId"));
       return deferred.promise;
     }
 
@@ -869,7 +869,7 @@ let API = (function() {
     path = path.replace("{config_key}", parameters["configKey"]);
 
     if (parameters["configKey"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: configKey"));
+      deferred.reject(new Error("缺少必需参数: configKey"));
       return deferred.promise;
     }
 
@@ -913,7 +913,7 @@ let API = (function() {
     path = path.replace("{config_key}", parameters["configKey"]);
 
     if (parameters["configKey"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: configKey"));
+      deferred.reject(new Error("缺少必需参数: configKey"));
       return deferred.promise;
     }
 
@@ -957,7 +957,7 @@ let API = (function() {
     path = path.replace("{config_key}", parameters["configKey"]);
 
     if (parameters["configKey"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: configKey"));
+      deferred.reject(new Error("缺少必需参数: configKey"));
       return deferred.promise;
     }
 
@@ -1073,7 +1073,7 @@ let API = (function() {
     path = path.replace("{file_id}", parameters["fileId"]);
 
     if (parameters["fileId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: fileId"));
+      deferred.reject(new Error("缺少必需参数: fileId"));
       return deferred.promise;
     }
 
@@ -1117,7 +1117,7 @@ let API = (function() {
     path = path.replace("{file_id}", parameters["fileId"]);
 
     if (parameters["fileId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: fileId"));
+      deferred.reject(new Error("缺少必需参数: fileId"));
       return deferred.promise;
     }
 
@@ -1269,7 +1269,7 @@ let API = (function() {
     path = path.replace("{type_name}", parameters["typeName"]);
 
     if (parameters["typeName"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: typeName"));
+      deferred.reject(new Error("缺少必需参数: typeName"));
       return deferred.promise;
     }
 
@@ -1313,7 +1313,7 @@ let API = (function() {
     path = path.replace("{flag_id}", parameters["flagId"]);
 
     if (parameters["flagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: flagId"));
+      deferred.reject(new Error("缺少必需参数: flagId"));
       return deferred.promise;
     }
 
@@ -1357,7 +1357,7 @@ let API = (function() {
     path = path.replace("{flag_id}", parameters["flagId"]);
 
     if (parameters["flagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: flagId"));
+      deferred.reject(new Error("缺少必需参数: flagId"));
       return deferred.promise;
     }
 
@@ -1401,7 +1401,7 @@ let API = (function() {
     path = path.replace("{flag_id}", parameters["flagId"]);
 
     if (parameters["flagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: flagId"));
+      deferred.reject(new Error("缺少必需参数: flagId"));
       return deferred.promise;
     }
 
@@ -1517,7 +1517,7 @@ let API = (function() {
     path = path.replace("{hint_id}", parameters["hintId"]);
 
     if (parameters["hintId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: hintId"));
+      deferred.reject(new Error("缺少必需参数: hintId"));
       return deferred.promise;
     }
 
@@ -1561,7 +1561,7 @@ let API = (function() {
     path = path.replace("{hint_id}", parameters["hintId"]);
 
     if (parameters["hintId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: hintId"));
+      deferred.reject(new Error("缺少必需参数: hintId"));
       return deferred.promise;
     }
 
@@ -1605,7 +1605,7 @@ let API = (function() {
     path = path.replace("{hint_id}", parameters["hintId"]);
 
     if (parameters["hintId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: hintId"));
+      deferred.reject(new Error("缺少必需参数: hintId"));
       return deferred.promise;
     }
 
@@ -1721,7 +1721,7 @@ let API = (function() {
     path = path.replace("{notification_id}", parameters["notificationId"]);
 
     if (parameters["notificationId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: notificationId"));
+      deferred.reject(new Error("缺少必需参数: notificationId"));
       return deferred.promise;
     }
 
@@ -1765,7 +1765,7 @@ let API = (function() {
     path = path.replace("{notification_id}", parameters["notificationId"]);
 
     if (parameters["notificationId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: notificationId"));
+      deferred.reject(new Error("缺少必需参数: notificationId"));
       return deferred.promise;
     }
 
@@ -1881,7 +1881,7 @@ let API = (function() {
     path = path.replace("{page_id}", parameters["pageId"]);
 
     if (parameters["pageId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: pageId"));
+      deferred.reject(new Error("缺少必需参数: pageId"));
       return deferred.promise;
     }
 
@@ -1925,7 +1925,7 @@ let API = (function() {
     path = path.replace("{page_id}", parameters["pageId"]);
 
     if (parameters["pageId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: pageId"));
+      deferred.reject(new Error("缺少必需参数: pageId"));
       return deferred.promise;
     }
 
@@ -1969,7 +1969,7 @@ let API = (function() {
     path = path.replace("{page_id}", parameters["pageId"]);
 
     if (parameters["pageId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: pageId"));
+      deferred.reject(new Error("缺少必需参数: pageId"));
       return deferred.promise;
     }
 
@@ -2049,7 +2049,7 @@ let API = (function() {
     path = path.replace("{count}", parameters["count"]);
 
     if (parameters["count"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: count"));
+      deferred.reject(new Error("缺少必需参数: count"));
       return deferred.promise;
     }
 
@@ -2165,7 +2165,7 @@ let API = (function() {
     path = path.replace("{column}", parameters["column"]);
 
     if (parameters["column"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: column"));
+      deferred.reject(new Error("缺少必需参数: column"));
       return deferred.promise;
     }
 
@@ -2209,7 +2209,7 @@ let API = (function() {
     path = path.replace("{column}", parameters["column"]);
 
     if (parameters["column"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: column"));
+      deferred.reject(new Error("缺少必需参数: column"));
       return deferred.promise;
     }
 
@@ -2325,7 +2325,7 @@ let API = (function() {
     path = path.replace("{column}", parameters["column"]);
 
     if (parameters["column"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: column"));
+      deferred.reject(new Error("缺少必需参数: column"));
       return deferred.promise;
     }
 
@@ -2441,7 +2441,7 @@ let API = (function() {
     path = path.replace("{submission_id}", parameters["submissionId"]);
 
     if (parameters["submissionId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: submissionId"));
+      deferred.reject(new Error("缺少必需参数: submissionId"));
       return deferred.promise;
     }
 
@@ -2485,7 +2485,7 @@ let API = (function() {
     path = path.replace("{submission_id}", parameters["submissionId"]);
 
     if (parameters["submissionId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: submissionId"));
+      deferred.reject(new Error("缺少必需参数: submissionId"));
       return deferred.promise;
     }
 
@@ -2601,7 +2601,7 @@ let API = (function() {
     path = path.replace("{tag_id}", parameters["tagId"]);
 
     if (parameters["tagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: tagId"));
+      deferred.reject(new Error("缺少必需参数: tagId"));
       return deferred.promise;
     }
 
@@ -2645,7 +2645,7 @@ let API = (function() {
     path = path.replace("{tag_id}", parameters["tagId"]);
 
     if (parameters["tagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: tagId"));
+      deferred.reject(new Error("缺少必需参数: tagId"));
       return deferred.promise;
     }
 
@@ -2689,7 +2689,7 @@ let API = (function() {
     path = path.replace("{tag_id}", parameters["tagId"]);
 
     if (parameters["tagId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: tagId"));
+      deferred.reject(new Error("缺少必需参数: tagId"));
       return deferred.promise;
     }
 
@@ -2887,7 +2887,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -2931,7 +2931,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -2975,7 +2975,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -3019,7 +3019,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -3063,7 +3063,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -3107,7 +3107,7 @@ let API = (function() {
     path = path.replace("{team_id}", parameters["teamId"]);
 
     if (parameters["teamId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: teamId"));
+      deferred.reject(new Error("缺少必需参数: teamId"));
       return deferred.promise;
     }
 
@@ -3367,7 +3367,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 
@@ -3411,7 +3411,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 
@@ -3455,7 +3455,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 
@@ -3499,7 +3499,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 
@@ -3543,7 +3543,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 
@@ -3587,7 +3587,7 @@ let API = (function() {
     path = path.replace("{user_id}", parameters["userId"]);
 
     if (parameters["userId"] === undefined) {
-      deferred.reject(new Error("Missing required  parameter: userId"));
+      deferred.reject(new Error("缺少必需参数: userId"));
       return deferred.promise;
     }
 

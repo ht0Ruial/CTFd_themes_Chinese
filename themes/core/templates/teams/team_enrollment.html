@@ -21,15 +21,15 @@
 		{% if integrations.mlc() %}
 		<div class="row">
 			<div class="col-md-6 offset-md-3 text-center">
-				<a class="btn btn-primary w-100" href="{{ url_for('auth.oauth_login') }}">与官方队伍比赛</a>
+				<a class="btn btn-primary w-100" href="{{ url_for('auth.oauth_login') }}">与官方团队比赛</a>
 			</div>
 		</div>
 		<div class="row pt-3">
 			<div class="col-md-3 offset-md-3 text-center">
-				<a class="btn btn-light w-100" href="{{ url_for('teams.join') }}">加入的团队</a>
+				<a class="btn btn-light w-100" href="{{ url_for('teams.join') }}">加入非官方团队</a>
 			</div>
 			<div class="col-md-3 text-center">
-				<a class="btn btn-light w-100" href="{{ url_for('teams.new') }}">创建的团队</a>
+				<a class="btn btn-light w-100" href="{{ url_for('teams.new') }}">创建非官方团队</a>
 			</div>
 		</div>
 		{% else %}

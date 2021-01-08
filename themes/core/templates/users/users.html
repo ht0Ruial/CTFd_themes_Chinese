@@ -48,8 +48,8 @@
 					<tr>
 						<td><b>User</b></td>
 						<td><b>Website</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>所属单位</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>国家</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Affiliation</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Country</b></td>
 					</tr>
 					</thead>
 					<tbody>
@@ -71,7 +71,7 @@
 							</td>
 							<td class="text-center" style="width: 10px;">
 								{% if user.website and (user.website.startswith('http://') or user.website.startswith('https://')) %}
-									<a href="{{ user.website }}" target="_blank">
+									<a href="{{ user.website }}" target="_blank" rel="noopener">
 										<i class="fas fa-external-link-alt" data-toggle="tooltip" data-placement="top"
 										   title="{{ user.website }}"></i>
 									</a>
@@ -107,7 +107,7 @@
 		{% if users.pages > 1 %}
 			<div class="row">
 				<div class="col-md-12">
-					<div class="text-center">Page
+					<div class="text-center">页
 						<br>
 						{% if users.page != 1 %}
 						<a href="{{ prev_page }}">&lt;&lt;&lt;</a>
